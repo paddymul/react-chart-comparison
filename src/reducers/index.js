@@ -1,12 +1,23 @@
 // src/js/reducers/index.js
 import { ADD_ARTICLE, MUTATE_SERIES_META, TOGGLE_SERIES_VIS
        } from "../actions/action-types";
+
+const data = [
+    {x: [1, 2, 3], y: [12,  6,  9]},
+    {x: [1, 2, 3], y: [2,   5,  3]},
+    {x: [1, 2, 3], y: [20, -5, 23]},
+];
+
 const initialState = {
     articles: [],
     series:   {
-        0 : {id:0, type: 'scatter', x: [1, 2, 3], y: [12,  6,  9], visible:true},
-        1 : {id:1, type: 'bar',     x: [1, 2, 3], y: [2,   5,  3], visible:false},
-        2 : {id:2, type: 'line',    x: [1, 2, 3], y: [20, -5, 23], visible:true},}
+        0 : {id:0, ...data[0], type: 'table', visible:true, mode: 'markers',
+             name:"foo"   },
+        1 : {id:1, ...data[1], type: 'bar',     visible:false, name: 'bar'},
+        2 : {id:2, ...data[2], type: 'line',    visible:true,  name:'baz'},
+        3 : {id:3, ...data[0], type: 'scatter', mode:'markers', visible:true,  name:'boff'},
+
+}
 };
 
 
