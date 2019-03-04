@@ -2,19 +2,26 @@ import React from 'react';
 import Plot from 'react-plotly.js';
 import { connect } from 'react-redux';
 import { toggleVisibility } from '../actions';
-
 import PlotProps from "../components/plot_props";
+import {data, plotTypes} from "../reducers";
+
 
 const _PlotWrapper = ({ seriesArr }) => {
     return (<div>
                 <PlotProps />
                 <Plot data={seriesArr} />
-            </div>);
-};
+            </div>);};
 
+const _expandSeries =  ser => {
+    // this combines the shorthand fields with their expanded versions
+    // shorthand fields include d and pwTyp
+    //
+    // eventually this function will translate between different plotting library
+    // conventions
+    return {...ser, ...data[ser.d], ...plotTypes[ser.pwTyp]};};
 
 const mapStateToProps = state => ({
-    seriesArr: Object.values(state.series)})
+    seriesArr: Object.values(state.series).map(_expandSeries),})
 
 const mapDispatchToProps = dispatch => ({
   toggleVis: id => dispatch(toggleVisibility(id) )})
