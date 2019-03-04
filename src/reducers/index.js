@@ -1,5 +1,6 @@
 // src/js/reducers/index.js
-import { ADD_ARTICLE, MUTATE_SERIES_META, TOGGLE_SERIES_VIS
+import { ADD_ARTICLE, MUTATE_SERIES_META, TOGGLE_SERIES_VIS,
+         CHANGE_SERIES_NAME
        } from "../actions/action-types";
 
 const data = [
@@ -21,18 +22,6 @@ const initialState = {
 };
 
 
-// const __toggleVis = (id, ser) => {
-//     if(id === action.id) {
-//         return {...ser, visible: false}; }
-//     return ser;
-// }
-
-const __toggleVis = (id, ser) => {
-    if(Number(id) === 0) {
-        return {...ser, visible: false}; }
-    return ser;
-}
-
 function rootReducer(state = initialState, action) {
     if (action.type === ADD_ARTICLE) {
         return Object.assign({}, state, {
@@ -46,17 +35,19 @@ function rootReducer(state = initialState, action) {
     }
 
     if (action.type === TOGGLE_SERIES_VIS) {
-        //debugger;
         var oldSeries = state.series;
         var newSeries = objMap(
             oldSeries,
             (id, ser) => Number(id) === action.id ? {...ser, visible: !ser.visible} : ser);
-        /*jslint eqeq: true*/
-        // var newSeries = objMap(
-        //     oldSeries,
-        //     (id, ser) => Number(id) === action.id ? {...ser, visible: false} : ser);
         const retVal = Object.assign({}, state, {'series': newSeries});
-        console.log(action.id, action.id === 0, retVal.series[0]);
+        return retVal;
+    }
+    if (action.type === CHANGE_SERIES_NAME) {
+        var oldSeries = state.series;
+        var newSeries = objMap(
+            oldSeries,
+            (id, ser) => Number(id) === action.id ? {...ser, name: action.name} : ser);
+        const retVal = Object.assign({}, state, {'series': newSeries});
         return retVal;
     }
     return state;
@@ -71,9 +62,6 @@ function objMap(obj, func) {
     return newObj;
 }
 
-///var a = {'a': 10, 'b':20};
-//objMap(initialState.series, __toggleVis);
-//debugger;
 
 
 export default rootReducer;

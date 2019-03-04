@@ -17,7 +17,7 @@ const mapStateToProps = state => ({
     seriesArr: Object.values(state.series)})
 
 const mapDispatchToProps = dispatch => ({
-  toggleVis: id => dispatch(toggleVisibility(id))})
+  toggleVis: id => dispatch(toggleVisibility(id) )})
 
 export default connect(
   mapStateToProps,
