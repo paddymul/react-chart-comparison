@@ -1,6 +1,6 @@
 // src/js/reducers/index.js
 import { ADD_ARTICLE, MUTATE_SERIES_META, TOGGLE_SERIES_VIS,
-         CHANGE_SERIES_NAME, ADD_DATA,
+         CHANGE_SERIES_NAME, ADD_DATA, CHART_LIB_CHANGE
        } from "../actions/action-types";
 import {objMap} from "../utils";
 
@@ -15,6 +15,7 @@ export const plotTypes = {
 
 const initialState = {
     articles: [],
+    chartLibrary: "Plotly",
     data : [
         {x: [1, 2, 3], y: [12,  6,  9], dName:'0'},
         {x: [1, 2, 3], y: [2,   5,  3], dName:'1'},
@@ -47,6 +48,9 @@ function rootReducer(state = initialState, action) {
             oldSeries,
             (id, ser) => Number(id) === action.id ? {...ser, name: action.name} : ser);
         const retVal = Object.assign({}, state, {'series': newSeries});
+        return retVal;}
+    if (action.type === CHART_LIB_CHANGE) {
+        const retVal = Object.assign({}, state, {'chartLibrary': action.new_lib});
         return retVal;}
     if (action.type === ADD_DATA) {
         var x = [], y = [];

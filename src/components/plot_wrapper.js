@@ -1,26 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleVisibility } from '../actions';
+import { chartLibChange } from '../actions';
 import PlotProps from "../components/plot_props";
 import {PlotlyTranslator} from "../components/plotly_translator";
 import {HighchartsTranslator} from "../components/highcharts_translator";
+import Select from 'react-select';
 
-//const ChartLibrary = "HighCharts";
-const ChartLibrary = "Plotly";
+
+const chartLibs = [
+    { label: "Plotly", value: "Plotly" },
+    { label: "HighCharts", value: "HighCharts" },
+];
+
 
 const SwitchedPlotTranslator = ({chartLib}) => {
-    if (ChartLibrary == "HighCharts") {
+    console.log("SwitchedPlotTranslator chartLib", chartLib);
+    if (chartLib == "HighCharts") {
         return <HighchartsTranslator />;}
-    else if (ChartLibrary == "Plotly") {
+    else if (chartLib == "Plotly") {
         return <PlotlyTranslator />;
     }
 }
 
-const _PlotWrapper = ({ seriesArr }) => {
+const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
     return (<div>
+            <h2> {chartLib } </h2>
+            <Select options={ chartLibs } onChange={ chartChange } />
             <PlotProps />
-            <SwitchedPlotTranslator />
+            <SwitchedPlotTranslator chartLib={chartLib} />
             </div>);};
 
 
-export default connect(null, null)(_PlotWrapper);
+const mapStateToProps = state => ({
+    chartLib: state.chartLibrary})
+
+const mapDispatchToProps = dispatch => ({
+    chartChange: ev => dispatch(chartLibChange(ev))});
+
+export default connect(mapStateToProps, mapDispatchToProps)(_PlotWrapper);

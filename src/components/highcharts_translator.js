@@ -21,6 +21,7 @@ const _HighchartsTranslator = () => <div>
     </div>
 
 export const HighchartsTranslator = _HighchartsTranslator;
+
 /*
 const _PlotlyTranslator = ({ seriesArr }) => {
     return (<div>
