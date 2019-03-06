@@ -25,6 +25,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "highcharts-react-official": "^2.0.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "typescript": "^3.3.3333",
