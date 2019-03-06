@@ -10,15 +10,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-            <h1>Paddy</h1>
-            
             <PlotWrapper />
-          <div>
-              <h2>Articles</h2>
-              <List />
-              <h2>Add a new article</h2>
-              <Form />
-          </div>
       </div>
     );
   }
