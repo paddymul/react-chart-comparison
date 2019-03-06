@@ -5,14 +5,21 @@ import PlotProps from "../components/plot_props";
 import {PlotlyTranslator} from "../components/plotly_translator";
 import {HighchartsTranslator} from "../components/highcharts_translator";
 
+//const ChartLibrary = "HighCharts";
+const ChartLibrary = "Plotly";
 
-//<Plot data={seriesArr} />
-//<PlotlyTranslator />
+const SwitchedPlotTranslator = ({chartLib}) => {
+    if (ChartLibrary == "HighCharts") {
+        return <HighchartsTranslator />;}
+    else if (ChartLibrary == "Plotly") {
+        return <PlotlyTranslator />;
+    }
+}
+
 const _PlotWrapper = ({ seriesArr }) => {
     return (<div>
-                <PlotProps />
-                <HighchartsTranslator />
-                
+            <PlotProps />
+            <SwitchedPlotTranslator />
             </div>);};
 
 
