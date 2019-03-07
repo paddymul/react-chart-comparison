@@ -51,6 +51,7 @@ function rootReducer(state = initialState, action) {
         return retVal;
     }
     if (action.type === CHANGE_SERIES_NAME) {
+        console.log(action);
         var oldSeries2 = state.series;
         var newSeries2 = objMap(
             oldSeries2,
@@ -68,9 +69,10 @@ function rootReducer(state = initialState, action) {
         }
         const oldDLen = state.data.length;
         const newDataEl = {'x':x, 'y':y, 'dName': oldDLen.toString() + "_r"};
-        const serKey = Object.keys(state.series).length.toString();
+        const serKeyInt = Object.keys(state.series).length;
+        const serKey = serKeyInt.toString();
         const newSerRow = {
-            id:serKey, d:oldDLen, pwTyp: 'scatter',  visible:true,
+            id:serKeyInt, d:oldDLen, pwTyp: 'scatter',  visible:true,
             name:'random' + oldDLen.toString()};
         var serObj = {};
         serObj[serKey] = newSerRow;

@@ -15,6 +15,13 @@ const options = {
           type: 'scatter'},]};
 */
 
+const hcDefaults = {
+boost: {
+    useGPUTranslations: true,
+    usePreAllocated: true
+}};
+
+
 const _HighchartsTranslator = ({ hcOptions }) => {
     return (<div>
                 <HighchartsReact
@@ -46,6 +53,7 @@ const mapStateToProps = state => {
     var newSer = Object.values(state.series).map(ser => _expandSeries(ser, state));
     const obj = {
         hcOptions: {
+            ...hcDefaults,
             title: 'foo',
             series: newSer}};
     return obj;};
