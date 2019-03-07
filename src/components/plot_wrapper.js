@@ -12,14 +12,12 @@ const chartLibs = [
     { label: "HighCharts", value: "HighCharts" },
 ];
 
-
 const SwitchedPlotTranslator = ({chartLib}) => {
     console.log("SwitchedPlotTranslator chartLib", chartLib);
-    if (chartLib == "HighCharts") {
+    if (chartLib === "HighCharts") {
         return <HighchartsTranslator />;}
-    else if (chartLib == "Plotly") {
-        return <PlotlyTranslator />;
-    }
+    else if (chartLib === "Plotly") {
+        return <PlotlyTranslator />;}
 }
 
 const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
@@ -30,9 +28,8 @@ const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
             <SwitchedPlotTranslator chartLib={chartLib} />
             </div>);};
 
-
 const mapStateToProps = state => ({
-    chartLib: state.chartLibrary})
+    chartLib: state.chartLibrary});
 
 const mapDispatchToProps = dispatch => ({
     chartChange: ev => dispatch(chartLibChange(ev))});

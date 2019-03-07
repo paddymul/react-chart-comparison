@@ -1,5 +1,5 @@
 // src/js/reducers/index.js
-import { ADD_ARTICLE, MUTATE_SERIES_META, TOGGLE_SERIES_VIS,
+import { ADD_ARTICLE, TOGGLE_SERIES_VIS,
          CHANGE_SERIES_NAME, ADD_DATA, CHART_LIB_CHANGE
        } from "../actions/action-types";
 import {objMap} from "../utils";
@@ -10,12 +10,18 @@ export const plotTypes = {
     'bar': {'type': 'bar', 'mode':null}
 };
 
+export const hcPlotTypes = {
+    'scatter': {'type': 'scatter' },
+    'line': {'type': 'line'},
+    'bar': {'type': 'bar'}
+};
+
 
 
 
 const initialState = {
     articles: [],
-    chartLibrary: "Plotly",
+    chartLibrary: "HighCharts",
     data : [
         {x: [1, 2, 3], y: [12,  6,  9], dName:'0'},
         {x: [1, 2, 3], y: [2,   5,  3], dName:'1'},
@@ -24,9 +30,11 @@ const initialState = {
 
     series:   {
         0 : {id:0, d:0, pwTyp: 'scatter', visible:true,  name:"foo"   },
-        1 : {id:1, d:1, pwTyp: 'bar',     visible:false, name: 'bar'},
+        1 : {id:1, d:1, pwTyp: 'line',     visible:false, name: 'bar'},
         2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'},
-        3 : {id:3, d:1, pwTyp: 'scatter',  visible:true,  name:'boff'}}
+        3 : {id:3, d:1, pwTyp: 'scatter',  visible:true,  name:'boff'}
+
+}
 };
 
 
@@ -43,11 +51,11 @@ function rootReducer(state = initialState, action) {
         return retVal;
     }
     if (action.type === CHANGE_SERIES_NAME) {
-        var oldSeries = state.series;
-        var newSeries = objMap(
-            oldSeries,
+        var oldSeries2 = state.series;
+        var newSeries2 = objMap(
+            oldSeries2,
             (id, ser) => Number(id) === action.id ? {...ser, name: action.name} : ser);
-        const retVal = Object.assign({}, state, {'series': newSeries});
+        const retVal = Object.assign({}, state, {'series': newSeries2});
         return retVal;}
     if (action.type === CHART_LIB_CHANGE) {
         const retVal = Object.assign({}, state, {'chartLibrary': action.new_lib});

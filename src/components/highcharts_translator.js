@@ -1,32 +1,32 @@
 import React from 'react';
-import { render } from 'react-dom';
 import { connect } from 'react-redux';
-import {plotTypes} from "../reducers";
+import {hcPlotTypes} from "../reducers";
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
+/*
 const options = {
     title: {
-        text: 'My chart'
-    },
-    series: [{
-        data: [1, 2, 3]
-    }]
-}
+        text: 'My chart'},
+    series: [
+        { data: [1, 2, 3]},
+        { data: [10, 20, 30], type: 'scatter'},
+        { data: [[50, 10], [70, 20], [90, 30]],
+          type: 'scatter'},]};
+*/
 
-const _HighchartsTranslator = () => <div>
-         <HighchartsReact
-             highcharts={Highcharts}
-             options={options}/>
-    </div>
-
-export const HighchartsTranslator = _HighchartsTranslator;
-
-/*
-const _PlotlyTranslator = ({ seriesArr }) => {
+const _HighchartsTranslator = ({ hcOptions }) => {
     return (<div>
-                <Plot data={seriesArr} />
+                <HighchartsReact
+                    highcharts={Highcharts}
+                    options={hcOptions}  />
             </div>);};
+
+const dataTransform = (dataObj) => {
+    var retData = [];
+    for(var i = 0; i < dataObj.x.length; i++){
+        retData.push([dataObj.x[i], dataObj.y[i]]);}
+    return retData;};
 
 const _expandSeries =  (ser, state) => {
     // this combines the shorthand fields with their expanded versions
@@ -38,16 +38,19 @@ const _expandSeries =  (ser, state) => {
     // I'm not sure if this function should be memoized to return the
     // same object for the same input so that unecessary re renderings
     // aren't triggered
-    return {...ser, ...state.data[ser.d], ...plotTypes[ser.pwTyp]};};
+    var ab = {...ser, ...hcPlotTypes[ser.pwTyp],
+              data: dataTransform(state.data[ser.d])};
+    return ab;};
 
-const mapStateToProps = state => ({
-    seriesArr: Object.values(state.series).map(ser => _expandSeries(ser, state))})
+const mapStateToProps = state => {
+    var newSer = Object.values(state.series).map(ser => _expandSeries(ser, state));
+    const obj = {
+        hcOptions: {
+            title: 'foo',
+            series: newSer}};
+    return obj;};
 
-const mapDispatchToProps = dispatch => ({
-  toggleVis: id => dispatch(toggleVisibility(id) )})
 
-export constPlotlyTranslator = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(_PlotlyTranslator);
-*/
+export const HighchartsTranslator = connect(
+    mapStateToProps, null)(_HighchartsTranslator);
+
