@@ -4,20 +4,23 @@ import { chartLibChange } from '../actions';
 import PlotProps from "../components/plot_props";
 import {PlotlyTranslator} from "../components/plotly_translator";
 import {HighchartsTranslator} from "../components/highcharts_translator";
+import {ChartJSTranslator} from "../components/chartjs_translator";
 import Select from 'react-select';
 
 
 const chartLibs = [
     { label: "Plotly", value: "Plotly" },
     { label: "HighCharts", value: "HighCharts" },
+    { label: "ChartJS", value: "ChartJS" },
 ];
 
 const SwitchedPlotTranslator = ({chartLib}) => {
-    console.log("SwitchedPlotTranslator chartLib", chartLib);
     if (chartLib === "HighCharts") {
         return <HighchartsTranslator />;}
     else if (chartLib === "Plotly") {
         return <PlotlyTranslator />;}
+    else if (chartLib === "ChartJS") {
+        return <ChartJSTranslator />;}
 }
 
 const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {

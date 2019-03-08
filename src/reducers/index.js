@@ -21,7 +21,7 @@ export const hcPlotTypes = {
 
 const initialState = {
     articles: [],
-    chartLibrary: "HighCharts",
+    chartLibrary: "Plotly",
     data : [
         {x: [1, 2, 3], y: [12,  6,  9], dName:'0'},
         {x: [1, 2, 3], y: [2,   5,  3], dName:'1'},
