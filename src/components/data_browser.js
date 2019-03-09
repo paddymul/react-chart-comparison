@@ -2,23 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { ONE_K, ONE_M } from "../utils";
-import { toggleVisibility, changeSeriesName, addDataAction
+import { addToSeriesAction, addDataAction
        } from '../actions';
 
 
 
-const SeriesRow = ({ ser, onClick, nameChange }) => {
+const DataRow = ({ meta, addToSeries }) => {
     return (
     <tr>
         <td>
-            <input type="text" value={ser.name} onChange={nameChange} />
+            { meta.dName }
         </td>
-        <td> {ser.type}</td>
-            <td><button onClick={onClick}> {ser.visible ? 'visibile' : 'hidden'}</button></td>
-            <td> {ser.d} </td>
-    </tr>)}
+            <td> { meta.description }</td>
+            <td> { meta.tags.map(tag => (<button> { tag } </button>)  ) }  </td>
+            <td><button onClick={ addToSeries }> Add </button></td>
+            </tr>); };
 
-export const SeriesTable = ({ series, toggleVis, nameChg, addData }) => {
+export const _DataBrowser = ({ dataMetas, addToSeriesOuter, addData }) => {
     return (
         <div>
             <div>
@@ -31,30 +31,31 @@ export const SeriesTable = ({ series, toggleVis, nameChg, addData }) => {
             </div>
                 <table>
                     <thead>
-                        <tr><th>Name</th><th>Type</th><th>Visible</th><th> dName</th></tr>
+                        <tr><th>Name</th><th>Description</th><th>Tags</th><th>Add to plot</th></tr>
                    </thead>
                 <tbody>
-            {Object.values(series).map(ser => (
-                    <SeriesRow
-                key={ser.id} ser={ser}
-                onClick={() => toggleVis(ser.id)}
-                nameChange={(ev) => nameChg({id:ser.id, ev})}
-                    />))}
+            {dataMetas.map(meta => (
+                    <DataRow
+                key={meta.dName} meta={meta}
+                addToSeries={() => addToSeriesOuter( meta.dName)}
+                    />) ) }
                 </tbody>
             </table>
             </div>
-    )};
+    ); };
 
 const mapStateToProps = state => ({
-  series: state.series})
+  dataMetas: state.data})
 
 const mapDispatchToProps = dispatch => ({
-    toggleVis: id => dispatch(toggleVisibility(id)),
-    nameChg: id => dispatch(changeSeriesName(id)),
+    addToSeriesOuter: dName => dispatch(addToSeriesAction(dName)),
     addData: ev => dispatch(addDataAction(ev))});
                                        
 
-export default connect(
+const DataBrowser = connect(
   mapStateToProps,
   mapDispatchToProps
-)(SeriesTable);
+)(_DataBrowser);
+        export default DataBrowser;
+
+        

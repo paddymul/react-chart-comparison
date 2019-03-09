@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { chartLibChange } from '../actions';
 import PlotProps from "../components/plot_props";
+import DataBrowser from "../components/data_browser";
 import {PlotlyTranslator} from "../components/plotly_translator";
 import {HighchartsTranslator} from "../components/highcharts_translator";
 import {ChartJSTranslator} from "../components/chartjs_translator";
@@ -27,6 +28,7 @@ const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
     return (<div>
             <SimpleSelect onChange={ chartChange } defaultV={ chartLib }
                           options={ chartLibs } />
+            <DataBrowser />
             <PlotProps />
             <SwitchedPlotTranslator chartLib={chartLib} />
             </div>);};

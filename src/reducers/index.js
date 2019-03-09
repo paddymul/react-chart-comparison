@@ -1,6 +1,7 @@
 // src/js/reducers/index.js
-import { TOGGLE_SERIES_VIS,
-         CHANGE_SERIES_NAME, ADD_DATA, CHART_LIB_CHANGE
+import { TOGGLE_SERIES_VIS, CHART_LIB_CHANGE,
+         CHANGE_SERIES_NAME,
+         ADD_DATA, ADD_TO_SERIES
        } from "../actions/action-types";
 import {objMap} from "../utils";
 
@@ -24,11 +25,12 @@ const initialState = {
     //chartLibrary: "HighCharts",
     chartLibrary: "Plotly",
     data : [
-        {x: [1, 2, 3], y: [12,  6,  9], dName:'0'},
-        {x: [1, 2, 3], y: [2,   5,  3], dName:'1'},
-        {x: [1, 2, 3], y: [20, -5, 23], dName:'2'},
-    ],
-
+        {x: [1, 2, 3], y: [12,  6,  9], dName:'0', description:'3 points 0',
+         tags: ['simple-x', '<10 points']},
+         {x: [1, 2, 3], y: [2,   5,  3], dName:'1', description:'3 points 1',
+          tags: ['simple-x', '<10 points']},
+        {x: [1, 2, 3], y: [20, -5, 23], dName:'2', description:'3 points 2',
+         tags: ['simple-x', '<10 points']},],
     series:   {
         0 : {id:0, d:0, pwTyp: 'scatter', visible:true,  name:"foo", color:"orange"   },
         1 : {id:1, d:1, pwTyp: 'line',    visible:false, name:'bar'  },
@@ -78,7 +80,29 @@ function rootReducer(state = initialState, action) {
         const retVal = Object.assign({}, state, {
             'series': newFullSeries, 'data': newData });
         return retVal;
+    }
+    if (action.type === ADD_TO_SERIES) {
+
+        
+        var dataID = null;
+        for(var i=0; i < state.data.length; i++){
+            if(action.dName === state.data[i].dName){
+                dataID = i;
+            }
         }
+        
+        const serKeyInt = Object.keys(state.series).length;
+        const serKey = serKeyInt.toString();
+        const newSerRow = {
+            id:serKeyInt, d:dataID, pwTyp: 'scatter',  visible:true,
+            name:'random' + dataID.toString()};
+        var serObj2 = {};
+        serObj2[serKey] = newSerRow;
+        const newFullSeries = Object.assign({}, state.series, serObj2);
+        const retVal = Object.assign({}, state, {
+            'series': newFullSeries});
+        return retVal;
+    }
     return state;
 };
 
