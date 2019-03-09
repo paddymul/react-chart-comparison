@@ -19,5 +19,5 @@ export const addDataAction = newLen => {
     return {type: ADD_DATA, 'newLen':newLen};};
 
 export const chartLibChange = obj => {
-    return {type: CHART_LIB_CHANGE, id: obj.id, new_lib: obj.value };
+    return {type: CHART_LIB_CHANGE,  new_lib: obj.target.value };
 };

@@ -5,13 +5,13 @@ import PlotProps from "../components/plot_props";
 import {PlotlyTranslator} from "../components/plotly_translator";
 import {HighchartsTranslator} from "../components/highcharts_translator";
 import {ChartJSTranslator} from "../components/chartjs_translator";
-import Select from 'react-select';
+import {SimpleSelect} from "../components/simple_select.js"
 
 
 const chartLibs = [
     { label: "Plotly", value: "Plotly" },
     { label: "HighCharts", value: "HighCharts" },
-    { label: "ChartJS", value: "ChartJS" },
+//    { label: "ChartJS", value: "ChartJS" },
 ];
 
 const SwitchedPlotTranslator = ({chartLib}) => {
@@ -25,8 +25,8 @@ const SwitchedPlotTranslator = ({chartLib}) => {
 
 const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
     return (<div>
-            <h2> {chartLib } </h2>
-            <Select options={ chartLibs } onChange={ chartChange } />
+            <SimpleSelect onChange={ chartChange } defaultV={ chartLib }
+                          options={ chartLibs } />
             <PlotProps />
             <SwitchedPlotTranslator chartLib={chartLib} />
             </div>);};

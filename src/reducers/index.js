@@ -21,6 +21,7 @@ export const hcPlotTypes = {
 
 const initialState = {
     articles: [],
+    //chartLibrary: "HighCharts",
     chartLibrary: "Plotly",
     data : [
         {x: [1, 2, 3], y: [12,  6,  9], dName:'0'},
@@ -29,11 +30,10 @@ const initialState = {
     ],
 
     series:   {
-        0 : {id:0, d:0, pwTyp: 'scatter', visible:true,  name:"foo"   },
-        1 : {id:1, d:1, pwTyp: 'line',     visible:false, name: 'bar'},
-        2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'},
-        3 : {id:3, d:1, pwTyp: 'scatter',  visible:true,  name:'boff'}
-
+        0 : {id:0, d:0, pwTyp: 'scatter', visible:true,  name:"foo", color:"orange"   },
+        1 : {id:1, d:1, pwTyp: 'line',    visible:false, name:'bar'  },
+        //2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'  },
+        //3 : {id:3, d:1, pwTyp: 'scatter', visible:true,  name:'boff'  }
 }
 };
 

@@ -34,12 +34,12 @@ export const SeriesTable = ({ series, toggleVis, nameChg, addData }) => {
                         <tr><th>name</th><th>type</th><th>visible</th><th> dName</th></tr>
                    </thead>
                 <tbody>
-                    {Object.values(series).map(ser => (
-                        <SeriesRow
-                            key={ser.id} ser={ser}
-                        onClick={() => toggleVis(ser.id)}
-                        nameChange={(ev) => nameChg({id:ser.id, ev})}
-                            />))}
+            {Object.values(series).map(ser => (
+                    <SeriesRow
+                key={ser.id} ser={ser}
+                onClick={() => toggleVis(ser.id)}
+                nameChange={(ev) => nameChg({id:ser.id, ev})}
+                    />))}
                 </tbody>
             </table>
             </div>
