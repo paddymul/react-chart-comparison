@@ -5,7 +5,7 @@ import PlotProps from "../components/plot_props";
 import {PlotlyTranslator} from "../components/plotly_translator";
 import {HighchartsTranslator} from "../components/highcharts_translator";
 import {ChartJSTranslator} from "../components/chartjs_translator";
-import {SimpleSelect} from "../components/simple_select.js"
+import {SimpleSelect} from "../components/simple_select.js";
 
 
 const chartLibs = [

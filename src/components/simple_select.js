@@ -9,4 +9,3 @@ export const SimpleSelect = ({onChange, options, defaultV}) => {
         </select>);
 };
 
-//export SimpleSelect;
