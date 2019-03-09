@@ -14,7 +14,7 @@ const DataRow = ({ meta, addToSeries }) => {
             { meta.dName }
         </td>
             <td> { meta.description }</td>
-            <td> { meta.tags.map(tag => (<button> { tag } </button>)  ) }  </td>
+            <td> { meta.tags.map(tag => (<button key={meta.dName + tag} > { tag } </button>)  ) }  </td>
             <td><button onClick={ addToSeries }> Add </button></td>
             </tr>); };
 

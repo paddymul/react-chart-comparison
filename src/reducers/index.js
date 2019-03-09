@@ -67,27 +67,28 @@ function rootReducer(state = initialState, action) {
             y.push(Math.random()*100);
         }
         const oldDLen = state.data.length;
-        const newDataEl = {'x':x, 'y':y, 'dName': oldDLen.toString() + "_r"};
-        const serKeyInt = Object.keys(state.series).length;
-        const serKey = serKeyInt.toString();
-        const newSerRow = {
-            id:serKeyInt, d:oldDLen, pwTyp: 'scatter',  visible:true,
-            name:'random' + oldDLen.toString()};
-        var serObj = {};
-        serObj[serKey] = newSerRow;
-        const newFullSeries = Object.assign({}, state.series, serObj);
+        const newDataEl = {'x':x, 'y':y, 'dName': oldDLen.toString() + "_r",
+                           'tags': [action.newLen.toString() + "_r"]
+                          };
+        // const serKeyInt = Object.keys(state.series).length;
+        // const serKey = serKeyInt.toString();
+        // const newSerRow = {
+        //     id:serKeyInt, d:oldDLen, pwTyp: 'scatter',  visible:true,
+        //     name:'random' + oldDLen.toString()};
+        // var serObj = {};
+        // serObj[serKey] = newSerRow;
+        // const newFullSeries = Object.assign({}, state.series, serObj);
+
         const newData = [].concat(state.data, newDataEl);
-        const retVal = Object.assign({}, state, {
-            'series': newFullSeries, 'data': newData });
-        return retVal;
+        const dataUpdateObj = {data: newData};
+        const retVal2 = Object.assign({}, state, dataUpdateObj);
+        return retVal2;
     }
     if (action.type === ADD_TO_SERIES) {
-
-        
         var dataID = null;
-        for(var i=0; i < state.data.length; i++){
-            if(action.dName === state.data[i].dName){
-                dataID = i;
+        for(var j=0; j < state.data.length; j++){
+            if(action.dName === state.data[j].dName){
+                dataID = j;
             }
         }
         
@@ -99,8 +100,7 @@ function rootReducer(state = initialState, action) {
         var serObj2 = {};
         serObj2[serKey] = newSerRow;
         const newFullSeries = Object.assign({}, state.series, serObj2);
-        const retVal = Object.assign({}, state, {
-            'series': newFullSeries});
+        const retVal = Object.assign({}, state, {'series': newFullSeries});
         return retVal;
     }
     return state;

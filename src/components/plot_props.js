@@ -21,19 +21,11 @@ const SeriesRow = ({ ser, onClick, nameChange }) => {
 export const SeriesTable = ({ series, toggleVis, nameChg, addData }) => {
     return (
         <div>
-            <div>
-            <h3> Add Data </h3>
-            <button onClick={() => addData(100)}         > 100 Series </button>
-            <button onClick={() => addData(ONE_K)}       > 1k Series </button>
-            <button onClick={() => addData(10 * ONE_K)}  > 10k Series </button>
-            <button onClick={() => addData(100 * ONE_K)} > 100k Series </button>
-            <button onClick={() => addData(ONE_M)}       > 1M Series </button>
-            </div>
-                <table>
-                    <thead>
-                        <tr><th>Name</th><th>Type</th><th>Visible</th><th> dName</th></tr>
-                   </thead>
-                <tbody>
+            <table>
+                <thead>
+                    <tr><th>Name</th><th>Type</th><th>Visible</th><th> dName</th></tr>
+                </thead>
+             <tbody>
             {Object.values(series).map(ser => (
                     <SeriesRow
                 key={ser.id} ser={ser}
