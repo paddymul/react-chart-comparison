@@ -1,3 +1,6 @@
+/*
+left in as an example so I can add to it when I need this facility
+
 import { ADD_ARTICLE } from "../actions/action-types";
 
 const forbiddenWords = ["spam", "money"];
@@ -13,4 +16,16 @@ export function forbiddenWordsMiddleware({ dispatch }) {
                 if (foundWord.length) {
                     return dispatch({ type: "FOUND_BAD_WORD" })}}
             return next(action);
-        };};}
+        };};
+
+}
+
+*/
+export function nullMiddleware({ dispatch }) {
+    return function(next) {
+        return function(action) {
+            return next(action);
+        };};
+}
+
+

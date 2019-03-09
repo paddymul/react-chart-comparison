@@ -1,5 +1,5 @@
 // src/js/reducers/index.js
-import { ADD_ARTICLE, TOGGLE_SERIES_VIS,
+import { TOGGLE_SERIES_VIS,
          CHANGE_SERIES_NAME, ADD_DATA, CHART_LIB_CHANGE
        } from "../actions/action-types";
 import {objMap} from "../utils";
@@ -32,16 +32,13 @@ const initialState = {
     series:   {
         0 : {id:0, d:0, pwTyp: 'scatter', visible:true,  name:"foo", color:"orange"   },
         1 : {id:1, d:1, pwTyp: 'line',    visible:false, name:'bar'  },
-        //2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'  },
-        //3 : {id:3, d:1, pwTyp: 'scatter', visible:true,  name:'boff'  }
+        2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'  },
+        3 : {id:3, d:1, pwTyp: 'scatter', visible:true,  name:'boff'  }
 }
 };
 
 
 function rootReducer(state = initialState, action) {
-    if (action.type === ADD_ARTICLE) {
-        return Object.assign({}, state, {
-            articles: state.articles.concat(action.payload)});}
     if (action.type === TOGGLE_SERIES_VIS) {
         var oldSeries = state.series;
         var newSeries = objMap(
