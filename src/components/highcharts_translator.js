@@ -19,7 +19,9 @@ const hcDefaults = {
 boost: {
     useGPUTranslations: true,
     usePreAllocated: true
-}};
+}
+     
+};
 
 
 const _HighchartsTranslator = ({ hcOptions }) => {
@@ -46,18 +48,23 @@ const _expandSeries =  (ser, state) => {
     // same object for the same input so that unecessary re renderings
     // aren't triggered
     var ab = {...ser, ...hcPlotTypes[ser.pwTyp],
-              data: dataTransform(state.data[ser.d])};
+              data: dataTransform(state.data[ser.d]),
+             };
     return ab;};
 
 const mapStateToProps = state => {
     var newSer = Object.values(state.series).map(ser => _expandSeries(ser, state));
+    var xAxisObj = {type:'linear'};
+    const hasTS = newSer.some((s) => s.visible && s.timeseries);
+    if (hasTS) {
+        xAxisObj =  { type: 'datetime' };}
     const obj = {
         hcOptions: {
             ...hcDefaults,
             title: 'foo',
-            series: newSer}};
+            series: newSer,
+            xAxis: xAxisObj}};
     return obj;};
-
 
 export const HighchartsTranslator = connect(
     mapStateToProps, null)(_HighchartsTranslator);

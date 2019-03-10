@@ -5,6 +5,10 @@ import { TOGGLE_SERIES_VIS, CHART_LIB_CHANGE,
        } from "../actions/action-types";
 import {objMap} from "../utils";
 
+
+import { ONE_DAY, JAN_1_2017,
+         TimeseriesGenX, RandSinY } from "../reducers/data_gen";
+
 export const plotTypes = {
     'scatter': {'type': 'scatter', 'mode':'markers'},
     'line': {'type': 'line', 'mode':null},
@@ -20,22 +24,43 @@ export const hcPlotTypes = {
 
 
 
+
+
+
 const initialState = {
     articles: [],
-    //chartLibrary: "HighCharts",
-    chartLibrary: "Plotly",
+    chartLibrary: "HighCharts",
+    //chartLibrary: "Plotly",
     data : [
+
         {x: [1, 2, 3], y: [12,  6,  9], dName:'0', description:'3 points 0',
          tags: ['simple-x', '<10 points']},
-         {x: [1, 2, 3], y: [2,   5,  3], dName:'1', description:'3 points 1',
+        {x: [1, 2, 3], y: [2,   5,  3], dName:'1', description:'3 points 1',
           tags: ['simple-x', '<10 points']},
         {x: [1, 2, 3], y: [20, -5, 23], dName:'2', description:'3 points 2',
-         tags: ['simple-x', '<10 points']},],
+         tags: ['simple-x', '<10 points']},
+        {x: TimeseriesGenX({n:20, start:JAN_1_2017, periodicity:ONE_DAY}),
+         y: RandSinY({n:20, start:50, sinAmp:7, randAmp:3}),
+          dName:'4', description:'200 sin timeseries',
+          tags: ['timeseries-x', '<500 points']},
+
+    ],
     series:   {
+        0 : {id:0, d:3, pwTyp: 'scatter', visible:false,  name:"foo", color:"orange",
+             timeseries:true},
+
+
+
+        1 : {id:1, d:1, pwTyp: 'line',    visible:false, name:'bar'  },
+        2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'  },
+        /*
+        3 : {id:3, d:1, pwTyp: 'scatter', visible:true,  name:'boff'  }
+
         0 : {id:0, d:0, pwTyp: 'scatter', visible:true,  name:"foo", color:"orange"   },
         1 : {id:1, d:1, pwTyp: 'line',    visible:false, name:'bar'  },
         2 : {id:2, d:2, pwTyp: 'line',    visible:true,  name:'baz'  },
         3 : {id:3, d:1, pwTyp: 'scatter', visible:true,  name:'boff'  }
+        */
 }
 };
 

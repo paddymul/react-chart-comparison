@@ -20,7 +20,14 @@ const _expandSeries =  (ser, state) => {
     // I'm not sure if this function should be memoized to return the
     // same object for the same input so that unecessary re renderings
     // aren't triggered
-    return {...ser, ...state.data[ser.d], ...plotTypes[ser.pwTyp]};};
+
+    const baseSer = {...ser, ...state.data[ser.d], ...plotTypes[ser.pwTyp]};
+    if (ser.timeseries) {
+        const timeX = baseSer.x.map( dteInt => (new Date(dteInt)).toISOString());
+        return {...baseSer, x: timeX};
+    }
+    return baseSer;
+};
 
 const mapStateToProps = state => ({
     seriesArr: Object.values(state.series).map(ser => _expandSeries(ser, state))})
