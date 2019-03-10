@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
-import { ONE_K, ONE_M } from "../utils";
 import { toggleVisibility, changeSeriesName, addDataAction
        } from '../actions';
 

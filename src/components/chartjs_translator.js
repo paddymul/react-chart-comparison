@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {hcPlotTypes} from "../reducers";
-import Line from "react-chartjs";
+//import Line from "react-chartjs";
 
 /*
 const options = {
