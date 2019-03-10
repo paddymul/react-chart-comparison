@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "bootstrap": "^4.3.1",
     "chart.js": "^1.1.1",
     "chartjs": "^0.3.24",
     "plotly.js": "^1.45.0",

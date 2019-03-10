@@ -25,12 +25,25 @@ const SwitchedPlotTranslator = ({chartLib}) => {
 }
 
 const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
-    return (<div>
+    return (<div className="container">
+            <div className="row">
+            <div className="col-sm">
+            <h3> Data Browser </h3>
+            <DataBrowser />
+            </div>
+            <div className="col-sm">
+            <h3> Series Editor </h3>
+            <PlotProps />
+            </div>
+            </div>
+            <div className="row">
             <SimpleSelect onChange={ chartChange } defaultV={ chartLib }
             options={ chartLibs } />
-            <DataBrowser />
-            <PlotProps />
+            </div>
+            <div className="row">
+
             <SwitchedPlotTranslator chartLib={chartLib} />
+            </div>
             </div>);};
 
 const mapStateToProps = state => ({
