@@ -5,8 +5,6 @@ import { ONE_K, ONE_M } from "../utils";
 import { addToSeriesAction, addDataAction
        } from '../actions';
 
-
-
 const DataRow = ({ meta, addToSeries }) => {
     return (
     <tr>

@@ -53,16 +53,20 @@ const _expandSeries =  (ser, state) => {
     return ab;};
 
 const mapStateToProps = state => {
-    var newSer = Object.values(state.series).map(ser => _expandSeries(ser, state));
+    const newSer = Object.values(state.series).map(ser => _expandSeries(ser, state));
+    var filteredSer = newSer;
+    if (state.serFilter !== "") {
+        filteredSer = newSer.filter(x => state.data[x.d].tags.includes(state.serFilter));
+    }
     var xAxisObj = {type:'linear'};
-    const hasTS = newSer.some((s) => s.visible && s.timeseries);
+    const hasTS = filteredSer.some((s) => s.visible && s.timeseries);
     if (hasTS) {
         xAxisObj =  { type: 'datetime' };}
     const obj = {
         hcOptions: {
             ...hcDefaults,
             title: 'foo',
-            series: newSer,
+            series: filteredSer,
             xAxis: xAxisObj}};
     return obj;};
 

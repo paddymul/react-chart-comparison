@@ -29,11 +29,17 @@ const _expandSeries =  (ser, state) => {
     return baseSer;
 };
 
-const mapStateToProps = state => ({
-    seriesArr: Object.values(state.series).map(ser => _expandSeries(ser, state))})
+const mapStateToProps = state => {
+    const newSer = Object.values(state.series).map(ser => _expandSeries(ser, state));
+    var filteredSer = newSer;
+    if (state.serFilter !== "") {
+        filteredSer = newSer.filter(x => state.data[x.d].tags.includes(state.serFilter));}
+    return ({
+        seriesArr: filteredSer});
+};
 
 const mapDispatchToProps = dispatch => ({
-  toggleVis: id => dispatch(toggleVisibility(id) )})
+    toggleVis: id => dispatch(toggleVisibility(id) )});
 
 export const PlotlyTranslator = connect(
   mapStateToProps,

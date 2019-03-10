@@ -1,7 +1,8 @@
 // src/js/reducers/index.js
 import { TOGGLE_SERIES_VIS, CHART_LIB_CHANGE,
          CHANGE_SERIES_NAME,
-         ADD_DATA, ADD_TO_SERIES
+         ADD_DATA, ADD_TO_SERIES,
+         DATA_TAG_CHANGE, SER_TAG_CHANGE
        } from "../actions/action-types";
 import {objMap} from "../utils";
 
@@ -45,6 +46,7 @@ const initialState = {
           tags: ['timeseries-x', '<500 points']},
 
     ],
+    serFilter : "",
     series:   {
         0 : {id:0, d:3, pwTyp: 'scatter', visible:false,  name:"foo", color:"orange",
              timeseries:true},
@@ -93,17 +95,7 @@ function rootReducer(state = initialState, action) {
         }
         const oldDLen = state.data.length;
         const newDataEl = {'x':x, 'y':y, 'dName': oldDLen.toString() + "_r",
-                           'tags': [action.newLen.toString() + "_r"]
-                          };
-        // const serKeyInt = Object.keys(state.series).length;
-        // const serKey = serKeyInt.toString();
-        // const newSerRow = {
-        //     id:serKeyInt, d:oldDLen, pwTyp: 'scatter',  visible:true,
-        //     name:'random' + oldDLen.toString()};
-        // var serObj = {};
-        // serObj[serKey] = newSerRow;
-        // const newFullSeries = Object.assign({}, state.series, serObj);
-
+                           'tags': [action.newLen.toString() + "_r"]};
         const newData = [].concat(state.data, newDataEl);
         const dataUpdateObj = {data: newData};
         const retVal2 = Object.assign({}, state, dataUpdateObj);
@@ -113,10 +105,7 @@ function rootReducer(state = initialState, action) {
         var dataID = null;
         for(var j=0; j < state.data.length; j++){
             if(action.dName === state.data[j].dName){
-                dataID = j;
-            }
-        }
-        
+                dataID = j;}}
         const serKeyInt = Object.keys(state.series).length;
         const serKey = serKeyInt.toString();
         const newSerRow = {
@@ -128,6 +117,14 @@ function rootReducer(state = initialState, action) {
         const retVal = Object.assign({}, state, {'series': newFullSeries});
         return retVal;
     }
+    if (action.type === SER_TAG_CHANGE) {
+        return Object.assign({}, state, {serFilter: action.new_filter});
+    }
+
+    if (action.type === DATA_TAG_CHANGE) {
+        return Object.assign({}, state, {dataFilter: action.new_filter});
+    };
+
     return state;
 };
 

@@ -27,7 +27,7 @@ const SwitchedPlotTranslator = ({chartLib}) => {
 const _PlotWrapper = ({ seriesArr, chartLib, chartChange }) => {
     return (<div>
             <SimpleSelect onChange={ chartChange } defaultV={ chartLib }
-                          options={ chartLibs } />
+            options={ chartLibs } />
             <DataBrowser />
             <PlotProps />
             <SwitchedPlotTranslator chartLib={chartLib} />

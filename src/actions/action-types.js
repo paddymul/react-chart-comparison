@@ -3,3 +3,7 @@ export const CHANGE_SERIES_NAME = "CHANGE_SERIES_NAME";
 export const ADD_DATA  = "ADD_DATA";
 export const ADD_TO_SERIES  = "ADD_TO_SERIES";
 export const CHART_LIB_CHANGE  = "CHART_TYPE_CHANGE";
+
+
+export const DATA_TAG_CHANGE  = "DATA_TAG_CHANGE";
+export const SER_TAG_CHANGE  = "SER_TAG_CHANGE";
